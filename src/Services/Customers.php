@@ -8,7 +8,7 @@ class Customers extends \Ufee\Amo\Base\Services\MainEntity
 {
 	protected static 
 		$_require = [
-			'add' => ['name', 'next_date'],
+			'add' => ['name'],
 			'update' => ['id', 'updated_at']
 		];
 	protected

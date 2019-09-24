@@ -31,7 +31,7 @@ class Post extends Method
 			$query->execute();
 		}
 		return $this->parseResponse(
-			$query
+			$query, $post_data
 		);
 	}
 	
@@ -40,7 +40,7 @@ class Post extends Method
 	 * @param Query $query
 	 * @return Collection
      */
-    protected function parseResponse(Api\Query &$query)
+    protected function parseResponse(Api\Query &$query, $postData)
     {
 		if (!$response = $query->response->parseJson()) {
 			throw new \Exception('Invalid API response (non JSON), code: '.$query->response->getCode(), $query->response->getCode());
@@ -64,7 +64,7 @@ class Post extends Method
 		}
 		$result = new Collection();
 		if (isset($response->_embedded->items)) {
-			foreach ($response->_embedded->items as $raw) {
+			foreach ($response->_embedded->items as $index => $raw) {
 				if (is_array($raw)) {
 					foreach ($raw as $raw_item) {
 						$raw_item->{'query_hash'} = $query->generateHash();
@@ -72,9 +72,9 @@ class Post extends Method
 					}
 				} else if (is_object($raw)) {
 					$raw->{'query_hash'} = $query->generateHash();
+                    if(isset($raw->request_id, $postData['add']) && $raw->request_id === 0) $raw->request_id = $postData['add'][ $index]['request_id'];
 					$result->push($raw);				
 				}
-
 			}
 		}
 		return $result;
