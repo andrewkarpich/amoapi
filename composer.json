@@ -1,6 +1,6 @@
 {
-    "name": "ufee/amoapi",
-    "homepage": "https://github.com/ufee",
+    "name": "andrewkarpich/amoapi",
+    "homepage": "https://github.com/andrewkarpich",
     "description": "amoCRM API Client (https://www.amocrm.ru/developers/content/platform/abilities/)",
     "type": "library",
     "license": "MIT",
@@ -11,10 +11,6 @@
             "role": "Creator"
         }
     ],
-    "support": {
-        "email": "vlad@ufee.ru",
-        "issues": "https://github.com/ufee"
-    },
     "require": {
         "php": ">=5.6"
     },
